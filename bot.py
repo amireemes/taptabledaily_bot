@@ -101,8 +101,8 @@ async def main():
     # Добавление асинхронных задач корректно
     # Алматы 19:25 → UTC 13:25
 
-    scheduler.add_job(scheduled_send_daily_reports, trigger='cron', hour=13, minute=39)
-    scheduler.add_job(scheduled_send_reminders, trigger='cron', hour=13, minute=45)
+    scheduler.add_job(scheduled_send_daily_reports, trigger='cron', hour=13, minute=43)
+    scheduler.add_job(scheduled_send_reminders, trigger='cron', hour=13, minute=50)
 
     scheduler.start()
 
