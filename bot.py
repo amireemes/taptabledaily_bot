@@ -8,14 +8,13 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-from id import TOKEN
+
 from your_module import send_daily_reports, send_reminders  # замените на актуальный импорт
 
 # Переменные окружения
-API_TOKEN = os.getenv("API_TOKEN", TOKEN)
+API_TOKEN = os.getenv("API_TOKEN")
 USER_IDS = list(map(int, os.getenv("USER_IDS", "").split(','))) or [
-    524373106, 897190202, 501421236, 385608549, 5006534774, 501352218
-]
+    524373106, 897190202, 501421236, 385608549, 5006534774, 501352218]
 
 # FSM состояния
 class ReportStates(StatesGroup):
