@@ -9,7 +9,6 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 
-from your_module import send_daily_reports, send_reminders  # замените на актуальный импорт
 
 # Переменные окружения
 API_TOKEN = os.getenv("API_TOKEN")
