@@ -5,9 +5,13 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import asyncio
 import logging
+import os
 
-API_TOKEN = '7832088261:AAGzemM68XHFX9KumNpehCoTYfuy_uUiy1g'  # Заменить на свой токен
-USER_IDS = [524373106]        # Сюда Telegram user ID разработчиков
+API_TOKEN = os.getenv("API_TOKEN")
+USER_IDS = list(map(int, os.getenv("USER_IDS").split(',')))
+
+# API_TOKEN = '7832088261:AAGzemM68XHFX9KumNpehCoTYfuy_uUiy1g'  # Заменить на свой токен
+# USER_IDS = [524373106, 897190202, 501421236, 897190202, 385608549, 5006534774, 501352218]        # Сюда Telegram user ID разработчиков Amir, Damir, Temir, Bekzhan, ALem, Abdulla,
 
 # FSM Состояния
 class ReportStates(StatesGroup):
