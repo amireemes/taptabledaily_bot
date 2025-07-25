@@ -27,7 +27,7 @@ class ReportStates(StatesGroup):
 bot = Bot(token=API_TOKEN)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
-scheduler = AsyncIOScheduler()
+scheduler = AsyncIOScheduler(event_loop=asyncio.get_event_loop())
 incomplete_users = set()
 
 
@@ -96,13 +96,15 @@ async def main():
     logging.basicConfig(level=logging.INFO)
 
     # Запуск диспетчера и планировщика
-    scheduler.start()
+    scheduler = AsyncIOScheduler(event_loop=asyncio.get_event_loop())  # привязка loop
 
     # Добавление асинхронных задач корректно
     # Алматы 19:25 → UTC 13:25
 
-    scheduler.add_job(scheduled_send_daily_reports, trigger='cron', hour=13, minute=33)
-    scheduler.add_job(scheduled_send_reminders, trigger='cron', hour=13, minute=33)
+    scheduler.add_job(scheduled_send_daily_reports, trigger='cron', hour=13, minute=39)
+    scheduler.add_job(scheduled_send_reminders, trigger='cron', hour=13, minute=45)
+
+    scheduler.start()
 
     # Можно временно протестировать вручную:
     # await scheduled_send_daily_reports()
