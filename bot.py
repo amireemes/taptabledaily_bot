@@ -85,7 +85,10 @@ async def scheduled_send_daily_reports():
 
 async def scheduled_send_reminders():
     for user_id in list(incomplete_users):
-        await bot.send_message(user_id, "⏰ Напоминание: пожалуйста, заполни ежедневный отчёт 🙌")
+        try:
+            await bot.send_message(user_id, "⏰ Напоминание: пожалуйста, заполни ежедневный отчёт 🙌")
+        except Exception as e:
+            logging.error(f"❌ Не удалось отправить напоминание пользователю {user_id}: {e}")
 
 
 # Главная функция
