@@ -13,7 +13,8 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 # Переменные окружения
 API_TOKEN = os.getenv("API_TOKEN")
 USER_IDS = list(map(int, os.getenv("USER_IDS", "").split(','))) or [
-    524373106, 897190202, 501421236, 385608549, 5006534774, 501352218]
+    524373106, 897190202, 501421236, 385608549, 5006534774, 501352218] 
+
 
 # FSM состояния
 class ReportStates(StatesGroup):
@@ -75,9 +76,12 @@ async def q4(message: types.Message, state: FSMContext):
 async def scheduled_send_daily_reports():
     for user_id in USER_IDS:
         incomplete_users.add(user_id)
-        await bot.send_message(user_id, "1️⃣ Над какой задачей ты работал сегодня?")
-        state = dp.current_state(user=user_id)
-        await state.set_state(ReportStates.question1.state)
+        try:
+            await bot.send_message(user_id, "1️⃣ Над какой задачей ты работал сегодня?")
+            state = dp.current_state(user=user_id)
+            await state.set_state(ReportStates.question1.state)
+        except Exception as e:
+            logging.error(f"❌ Не удалось отправить сообщение пользователю {user_id}: {e}")
 
 async def scheduled_send_reminders():
     for user_id in list(incomplete_users):
