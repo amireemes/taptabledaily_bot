@@ -87,9 +87,17 @@ async def scheduled_send_reminders():
 # Главная функция
 async def main():
     logging.basicConfig(level=logging.INFO)
-    scheduler.add_job(scheduled_send_daily_reports, 'cron', hour=18, minute=50)
-    scheduler.add_job(scheduled_send_reminders, 'cron', hour=19, minute=30)
+
+    # Запуск диспетчера и планировщика
     scheduler.start()
+
+    # Добавление асинхронных задач корректно
+    scheduler.add_job(scheduled_send_daily_reports, trigger='cron', hour=18, minute=50)
+    scheduler.add_job(scheduled_send_reminders, trigger='cron', hour=19, minute=30)
+
+    # Можно временно протестировать вручную:
+    # await scheduled_send_daily_reports()
+    # await scheduled_send_reminders()
 
     await dp.start_polling()
 
