@@ -79,7 +79,7 @@ async def send_reminders():
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
-    scheduler.add_job(send_daily_reports, 'cron', hour=17, minute=20)
-    scheduler.add_job(send_reminders, 'cron', hour=17, minute=30)
+    scheduler.add_job(send_daily_reports, 'cron', hour=18, minute=20)
+    scheduler.add_job(send_reminders, 'cron', hour=19, minute=00)
     scheduler.start()
     executor.start_polling(dp, skip_updates=True)
