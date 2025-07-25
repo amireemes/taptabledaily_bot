@@ -99,12 +99,12 @@ async def main():
     scheduler.start()
 
     # Добавление асинхронных задач корректно
-    # scheduler.add_job(scheduled_send_daily_reports, trigger='cron', hour=18, minute=50)
-    # scheduler.add_job(scheduled_send_reminders, trigger='cron', hour=19, minute=30)
+    scheduler.add_job(scheduled_send_daily_reports, trigger='cron', hour=19, minute=26)
+    scheduler.add_job(scheduled_send_reminders, trigger='cron', hour=19, minute=35)
 
     # Можно временно протестировать вручную:
-    await scheduled_send_daily_reports()
-    await scheduled_send_reminders()
+    # await scheduled_send_daily_reports()
+    # await scheduled_send_reminders()
 
     
     await dp.start_polling()
