@@ -139,6 +139,12 @@ async def q4(message: types.Message, state: FSMContext):
                 logging.warning(f"Не удалось отправить отчёт админу {admin_id}: {e}")
 
 
+@dp.message_handler()
+async def catch_chat_id(message: types.Message):
+    print(f"Chat ID: {message.chat.id}")
+
+
+
 
 # Задачи по расписанию
 async def scheduled_send_daily_reports():
