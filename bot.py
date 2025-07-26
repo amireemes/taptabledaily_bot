@@ -9,7 +9,7 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from datetime import datetime
 import locale
-from notion_utils import send_report_to_notion
+from notion_utils import send_to_notion
 from notion_client import Client
 
 
@@ -153,7 +153,7 @@ async def q4(message: types.Message, state: FSMContext):
             GROUP_CHAT_ID,
             f"🧑‍💻 Отчёт от {developer_name} за {formatted_date}:\n\n{report_core}"
         )
-        send_report_to_notion(developer_name, data['q1'], data['q2'], data['q3'], data['q4'])
+        send_to_notion(developer_name, data['q1'], data['q2'], data['q3'], data['q4'])
 
     except Exception as e:
         logging.warning(f"Не удалось отправить отчёт в группу: {e}")
