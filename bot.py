@@ -7,6 +7,9 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from datetime import datetime
+import locale
+
 
 
 
@@ -71,15 +74,34 @@ async def q3(message: types.Message, state: FSMContext):
     )
     await ReportStates.question4.set()
 
+
+# Устанавливаем русскую локаль для форматирования дат (если поддерживается)
+try:
+    locale.setlocale(locale.LC_TIME, 'ru_RU.UTF-8')
+except locale.Error:
+    # fallback: можно захардкодить месяц вручную или использовать другой подход
+    MONTHS = {
+        1: "января", 2: "февраля", 3: "марта", 4: "апреля",
+        5: "мая", 6: "июня", 7: "июля", 8: "августа",
+        9: "сентября", 10: "октября", 11: "ноября", 12: "декабря"
+    }
+
 @dp.message_handler(state=ReportStates.question4)
 async def q4(message: types.Message, state: FSMContext):
     await state.update_data(q4=message.text)
     data = await state.get_data()
 
+    # Получаем дату
+    today = datetime.now()
+    try:
+        formatted_date = today.strftime("%d %B")  # "26 июля"
+    except:
+        formatted_date = f"{today.day} {MONTHS.get(today.month, '')}"
+
     await message.answer("Спасибо, что нашёл время поделиться!\nТвой вклад ценен, ты крутой 😎")
 
     await message.answer(
-        f"📋 Твой отчёт:\n\n"
+        f"📋 Твой отчёт на {formatted_date}:\n\n"
         f"1️⃣ Над чем работал:\n{data['q1']}\n\n"
         f"2️⃣ Сложности:\n{data['q2']}\n\n"
         f"3️⃣ План на завтра:\n{data['q3']}\n\n"
@@ -88,6 +110,7 @@ async def q4(message: types.Message, state: FSMContext):
 
     incomplete_users.discard(message.chat.id)
     await state.finish()
+
 
 
 # Задачи по расписанию
