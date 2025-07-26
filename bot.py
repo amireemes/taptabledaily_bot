@@ -86,17 +86,22 @@ except locale.Error:
         9: "сентября", 10: "октября", 11: "ноября", 12: "декабря"
     }
 
+# Месяцы на русском
+MONTHS_RU = {
+    1: "января", 2: "февраля", 3: "марта", 4: "апреля",
+    5: "мая", 6: "июня", 7: "июля", 8: "августа",
+    9: "сентября", 10: "октября", 11: "ноября", 12: "декабря"
+}
+
+
 @dp.message_handler(state=ReportStates.question4)
 async def q4(message: types.Message, state: FSMContext):
     await state.update_data(q4=message.text)
     data = await state.get_data()
 
-    # Получаем дату
+    # Получаем дату в виде "26 июля"
     today = datetime.now()
-    try:
-        formatted_date = today.strftime("%d %B")  # "26 июля"
-    except:
-        formatted_date = f"{today.day} {MONTHS.get(today.month, '')}"
+    formatted_date = f"{today.day} {MONTHS_RU[today.month]}"
 
     await message.answer("Спасибо, что нашёл время поделиться!\nТвой вклад ценен, ты крутой 😎")
 
