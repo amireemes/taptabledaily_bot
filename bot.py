@@ -17,7 +17,7 @@ import locale
 API_TOKEN = os.getenv("API_TOKEN")
 USER_IDS = list(map(int, os.getenv("USER_IDS", "").split(','))) or [
     524373106, 897190202, 501421236, 385608549, 5006534774, 501352218] 
-ADMINS = [524373106,501421236, 5006534774 ]  
+ADMINS = [524373106, 501421236, 5006534774]  # Amir, Temir, Alemkhan
 DEVELOPERS = {
     524373106: "Amir",
     897190202: "Damir",
@@ -129,7 +129,7 @@ async def q4(message: types.Message, state: FSMContext):
 
     # Отправляем отчёт администраторам
     for admin_id in ADMINS:
-        if admin_id != message.chat.id:  # Чтобы не отправлять самому разработчику
+        # if admin_id != message.chat.id:  # Чтобы не отправлять самому разработчику
             try:
                 await bot.send_message(
                     admin_id,
