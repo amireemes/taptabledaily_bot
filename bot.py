@@ -152,8 +152,9 @@ async def q4(message: types.Message, state: FSMContext):
         await bot.send_message(
             GROUP_CHAT_ID,
             f"🧑‍💻 Отчёт от {developer_name} за {formatted_date}:\n\n{report_core}"
-            send_report_to_notion(developer_name, data['q1'], data['q2'], data['q3'], data['q4'])
         )
+        send_report_to_notion(developer_name, data['q1'], data['q2'], data['q3'], data['q4'])
+
     except Exception as e:
         logging.warning(f"Не удалось отправить отчёт в группу: {e}")
 
