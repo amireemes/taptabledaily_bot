@@ -206,13 +206,13 @@ async def main():
     # Добавление асинхронных задач корректно
     # Алматы 19:25 → UTC 13:25
 
-    # scheduler.add_job(scheduled_send_daily_reports, trigger='cron', hour=19, minute=48, timezone='Asia/Almaty')
-    # scheduler.add_job(scheduled_send_reminders, trigger='cron', hour=19, minute=55, timezone='Asia/Almaty')
+    scheduler.add_job(scheduled_send_daily_reports, trigger='cron', hour=18, minute=15, timezone='Asia/Almaty')
+    scheduler.add_job(scheduled_send_reminders, trigger='cron', hour=19, minute=55, timezone='Asia/Almaty')
 
     scheduler.start()
 
     # Можно временно протестировать вручную:
-    await scheduled_send_daily_reports()
+    # await scheduled_send_daily_reports()
     # await scheduled_send_reminders()
 
     
