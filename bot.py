@@ -19,13 +19,13 @@ USER_IDS = list(map(int, os.getenv("USER_IDS", "").split(','))) or [
     524373106, 897190202, 501421236, 385608549, 5006534774, 501352218] 
 ADMINS = [524373106, 501421236, 5006534774]  # Amir, Temir, Alemkhan
 DEVELOPERS = {
-    524373106: "Amir",
-    897190202: "Damir",
-    501421236: "Temir",
-    385608549: "Bekzhan",
-    5006534774: "Alem",
-    501352218: "Abdulla", 
-    501352218: "Daniyal"
+    524373106: "Amir Yergaliyev",
+    897190202: "Damir Kushumbayev",
+    501421236: "Temirlan Ismagulov",
+    385608549: "Bekzhan Aktoreev",
+    5006534774: "Alemkhan Yergaliyev",
+    501352218: "Abdulla Jurayev", 
+    501352218: "Daniyal Serik"
 }
 GROUP_CHAT_ID = -1002827950178
 
