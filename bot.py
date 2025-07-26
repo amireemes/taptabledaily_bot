@@ -150,7 +150,7 @@ async def q4(message: types.Message, state: FSMContext):
     # Отправка в группу
     try:
         await bot.send_message(
-            REPORT_CHAT_ID,
+            GROUP_CHAT_ID,
             f"🧑‍💻 Отчёт от {developer_name} за {formatted_date}:\n\n{report_text}"
         )
     except Exception as e:
