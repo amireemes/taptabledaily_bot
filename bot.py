@@ -137,11 +137,20 @@ async def q4(message: types.Message, state: FSMContext):
                 )
             except Exception as e:
                 logging.warning(f"Не удалось отправить отчёт админу {admin_id}: {e}")
+    
+    # Отправляем в общую группу
+    try:
+        await bot.send_message(
+            GROUP_CHAT_ID,
+            f"🧑‍💻 Отчёт от {developer_name} за {formatted_date}:\n\n{report_text}"
+        )
+    except Exception as e:
+        logging.warning(f"Не удалось отправить отчёт в группу: {e}")
 
 
-@dp.message_handler()
-async def catch_chat_id(message: types.Message):
-    print(f"Chat ID: {message.chat.id}")
+# @dp.message_handler()
+# async def catch_chat_id(message: types.Message):
+#     print(f"Chat ID: {message.chat.id}")
 
 
 
