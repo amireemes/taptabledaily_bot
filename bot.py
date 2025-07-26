@@ -151,7 +151,7 @@ async def q4(message: types.Message, state: FSMContext):
     try:
         await bot.send_message(
             GROUP_CHAT_ID,
-            f"🧑‍💻 Отчёт от {developer_name} за {formatted_date}:\n\n{report_text}"
+            f"🧑‍💻 Отчёт от {developer_name} за {formatted_date}:\n\n{report_core}"
         )
     except Exception as e:
         logging.warning(f"Не удалось отправить отчёт в группу: {e}")
