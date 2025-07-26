@@ -2,10 +2,13 @@ import os
 from notion_client import Client
 from datetime import datetime
 
-NOTION_TOKEN = os.getenv("NOTION_TOKEN")
+print("in notion.utils -> \n")
+NOTION_TOKEN = "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"
 print("TOKEN USED:", NOTION_TOKEN)
 
-notion = Client(auth=NOTION_TOKEN)
+#notion = Client(auth=NOTION_TOKEN)
+notion = NOTION_TOKEN
+
 NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
 
 
