@@ -3,11 +3,13 @@ from notion_client import Client
 from datetime import datetime
 
 print("in notion.utils -> \n")
-NOTION_TOKEN = "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"
-print("TOKEN USED:", NOTION_TOKEN)
 
-#notion = Client(auth=NOTION_TOKEN)
-notion = NOTION_TOKEN
+# Хардкод временно (или возьми из env, если работает)
+NOTION_TOKEN = "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"
+
+# 💥 ВАЖНО: правильно инициализируй клиент
+notion = Client(auth=NOTION_TOKEN)
+print("TOKEN USED in notion_utils:", notion)
 
 NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
 
