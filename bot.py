@@ -156,6 +156,8 @@ async def q4(message: types.Message, state: FSMContext):
         print("📤 Отправка в Notion:")
         print("ID:", message.chat.id)
         print("DATA:", data)
+        print(f"TOKEN USED: {os.getenv('NOTION_TOKEN')}")
+
 
         await send_to_notion(message.chat.id, data)  
 
