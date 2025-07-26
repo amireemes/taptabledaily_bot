@@ -36,25 +36,39 @@ incomplete_users = set()
 async def start_report(message: types.Message):
     user_id = message.chat.id
     incomplete_users.add(user_id)
-    await message.answer("1️⃣ Над какой задачей ты работал сегодня?")
+    await message.answer(
+        "Привет! Хочу, чтобы ты рассказал мне о сегодняшнем дне 😎\n\n"
+        "1. Над какой задачей ты работал сегодня? 🔪\n\n"
+        "(Отпиши детально по нумерации задачи → Задача FXX: сделано это, это.\n"
+        "Задача BKK: сделано это, это)"
+    )
     await ReportStates.question1.set()
 
 @dp.message_handler(state=ReportStates.question1)
 async def q1(message: types.Message, state: FSMContext):
     await state.update_data(q1=message.text)
-    await message.answer("2️⃣ Какие были сложности?")
+    await message.answer(
+        "2. Какие были сложности? 👊\n\n"
+        "(Может не хватало данных, были доработки на frontend/backend, баги и т.д.)"
+    )
     await ReportStates.question2.set()
 
 @dp.message_handler(state=ReportStates.question2)
 async def q2(message: types.Message, state: FSMContext):
     await state.update_data(q2=message.text)
-    await message.answer("3️⃣ Что планируешь завтра?")
+    await message.answer(
+        "3. Что планируешь завтра? 📆\n\n"
+        "(Опиши задачи, code review и т.п.)"
+    )
     await ReportStates.question3.set()
 
 @dp.message_handler(state=ReportStates.question3)
 async def q3(message: types.Message, state: FSMContext):
     await state.update_data(q3=message.text)
-    await message.answer("4️⃣ Есть ли какие-нибудь комментарии?")
+    await message.answer(
+        "4. Есть ли какие-нибудь комментарии? 📌\n\n"
+        "(Любые важные замечания)"
+    )
     await ReportStates.question4.set()
 
 @dp.message_handler(state=ReportStates.question4)
@@ -62,11 +76,11 @@ async def q4(message: types.Message, state: FSMContext):
     await state.update_data(q4=message.text)
     data = await state.get_data()
     await message.answer(
-        f"📋 Твой отчёт:\n"
-        f"1️⃣ Над чем работал: {data['q1']}\n"
-        f"2️⃣ Сложности: {data['q2']}\n"
-        f"3️⃣ План на завтра: {data['q3']}\n"
-        f"4️⃣ Комментарии: {data['q4']}"
+        f"📋 Твой отчёт:\n\n"
+        f"1️⃣ Над чем работал:\n{data['q1']}\n\n"
+        f"2️⃣ Сложности:\n{data['q2']}\n\n"
+        f"3️⃣ План на завтра:\n{data['q3']}\n\n"
+        f"4️⃣ Комментарии:\n{data['q4']}"
     )
     incomplete_users.discard(message.chat.id)
     await state.finish()
@@ -101,14 +115,14 @@ async def main():
     # Добавление асинхронных задач корректно
     # Алматы 19:25 → UTC 13:25
 
-    scheduler.add_job(scheduled_send_daily_reports, trigger='cron', hour=19, minute=48, timezone='Asia/Almaty')
-    scheduler.add_job(scheduled_send_reminders, trigger='cron', hour=19, minute=55, timezone='Asia/Almaty')
+    # scheduler.add_job(scheduled_send_daily_reports, trigger='cron', hour=19, minute=48, timezone='Asia/Almaty')
+    # scheduler.add_job(scheduled_send_reminders, trigger='cron', hour=19, minute=55, timezone='Asia/Almaty')
 
     scheduler.start()
 
     # Можно временно протестировать вручную:
-    # await scheduled_send_daily_reports()
-    # await scheduled_send_reminders()
+    await scheduled_send_daily_reports()
+    await scheduled_send_reminders()
 
     
     await dp.start_polling()
