@@ -10,7 +10,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from datetime import datetime
 import locale
 from notion_utils import send_report_to_notion
-
+from notion_client import Client
 
 
 # Переменные окружения
