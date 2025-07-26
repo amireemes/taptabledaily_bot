@@ -129,13 +129,20 @@ async def q4(message: types.Message, state: FSMContext):
     # Определяем имя разработчика
     developer_name = DEVELOPERS.get(message.chat.id, f"User {message.chat.id}")
 
+    report_core = (
+        f"1️⃣ Над чем работал:\n{data['q1']}\n\n"
+        f"2️⃣ Сложности:\n{data['q2']}\n\n"
+        f"3️⃣ План на завтра:\n{data['q3']}\n\n"
+        f"4️⃣ Комментарии:\n{data['q4']}"
+    )
+
     # Отправляем отчёт администраторам
     for admin_id in ADMINS:
         # if admin_id != message.chat.id:  # Чтобы не отправлять самому разработчику
             try:
                 await bot.send_message(
                     admin_id,
-                    f"🧑‍💻 Отчёт от {developer_name}:\n\n{report_text}"
+                    f"🧑‍💻 Отчёт от {developer_name}:\n\n{report_core}"
                 )
             except Exception as e:
                 logging.warning(f"Не удалось отправить отчёт админу {admin_id}: {e}")
@@ -144,7 +151,7 @@ async def q4(message: types.Message, state: FSMContext):
     try:
         await bot.send_message(
             GROUP_CHAT_ID,
-            f"🧑‍💻 Отчёт от {developer_name} за {formatted_date}:\n\n{report_text}"
+            f"🧑‍💻 Отчёт от {developer_name} за {formatted_date}:\n\n{report_core}"
         )
     except Exception as e:
         logging.warning(f"Не удалось отправить отчёт в группу: {e}")
