@@ -5,6 +5,9 @@ from datetime import datetime
 notion = Client(auth=os.getenv("NOTION_TOKEN"))
 NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
 
+print("TOKEN USED:", os.getenv("NOTION_TOKEN"))
+
+
 # Привязка Telegram ID к пользователю в Notion
 NOTION_PEOPLE = {
     524373106: {"name": "Amir", "id": "some-notion-user-id"},       # Заполни, если нужно персонально
