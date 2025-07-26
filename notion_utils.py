@@ -11,8 +11,8 @@ NOTION_TOKEN = "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"
 notion = Client(auth=NOTION_TOKEN)
 print("TOKEN USED in notion_utils:", notion)
 
-NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
-
+# NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
+NOTION_DATABASE_ID = "23cf33d443d98012af65f0b879d550e1"
 
 
 
