@@ -91,7 +91,13 @@ async def scheduled_send_daily_reports():
     for user_id in USER_IDS:
         incomplete_users.add(user_id)
         try:
-            await bot.send_message(user_id, "1️⃣ Над какой задачей ты работал сегодня?")
+            await bot.send_message(
+    user_id,
+    "Привет! Хочу, чтобы ты рассказал мне о сегодняшнем дне 😎\n\n"
+    "1. Над какой задачей ты работал сегодня? 🔪\n\n"
+    "(Отпиши детально по нумерации задачи → Задача FXX: сделано это, это.\n"
+    "Задача BKK: сделано это, это)"
+)
             state = dp.current_state(user=user_id)
             await state.set_state(ReportStates.question1.state)
         except Exception as e:
@@ -122,7 +128,7 @@ async def main():
 
     # Можно временно протестировать вручную:
     await scheduled_send_daily_reports()
-    await scheduled_send_reminders()
+    # await scheduled_send_reminders()
 
     
     await dp.start_polling()
