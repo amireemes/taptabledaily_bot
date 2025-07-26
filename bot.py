@@ -27,6 +27,8 @@ DEVELOPERS = {
     501352218: "Abdulla", 
     501352218: "Daniyal"
 }
+GROUP_CHAT_ID = -1002827950178
+
 
 
 # FSM состояния
