@@ -75,6 +75,9 @@ async def q3(message: types.Message, state: FSMContext):
 async def q4(message: types.Message, state: FSMContext):
     await state.update_data(q4=message.text)
     data = await state.get_data()
+
+    await message.answer("Спасибо, что нашёл время поделиться!\nТвой вклад ценен, ты крутой 😎")
+
     await message.answer(
         f"📋 Твой отчёт:\n\n"
         f"1️⃣ Над чем работал:\n{data['q1']}\n\n"
@@ -82,6 +85,7 @@ async def q4(message: types.Message, state: FSMContext):
         f"3️⃣ План на завтра:\n{data['q3']}\n\n"
         f"4️⃣ Комментарии:\n{data['q4']}"
     )
+
     incomplete_users.discard(message.chat.id)
     await state.finish()
 
