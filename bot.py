@@ -17,6 +17,16 @@ import locale
 API_TOKEN = os.getenv("API_TOKEN")
 USER_IDS = list(map(int, os.getenv("USER_IDS", "").split(','))) or [
     524373106, 897190202, 501421236, 385608549, 5006534774, 501352218] 
+ADMINS = [524373106,501421236, 5006534774 ]  
+DEVELOPERS = {
+    524373106: "Amir",
+    897190202: "Damir",
+    501421236: "Temir",
+    385608549: "Bekzhan",
+    5006534774: "Alem",
+    501352218: "Abdulla", 
+    501352218: "Daniyal"
+}
 
 
 # FSM состояния
@@ -99,13 +109,12 @@ async def q4(message: types.Message, state: FSMContext):
     await state.update_data(q4=message.text)
     data = await state.get_data()
 
-    # Получаем дату в виде "26 июля"
     today = datetime.now()
     formatted_date = f"{today.day} {MONTHS_RU[today.month]}"
 
     await message.answer("Спасибо, что нашёл время поделиться!\nТвой вклад ценен, ты крутой 😎")
 
-    await message.answer(
+    report_text = (
         f"📋 Твой отчёт на {formatted_date}:\n\n"
         f"1️⃣ Над чем работал:\n{data['q1']}\n\n"
         f"2️⃣ Сложности:\n{data['q2']}\n\n"
@@ -113,8 +122,21 @@ async def q4(message: types.Message, state: FSMContext):
         f"4️⃣ Комментарии:\n{data['q4']}"
     )
 
-    incomplete_users.discard(message.chat.id)
-    await state.finish()
+    await message.answer(report_text)
+
+    # Определяем имя разработчика
+    developer_name = DEVELOPERS.get(message.chat.id, f"User {message.chat.id}")
+
+    # Отправляем отчёт администраторам
+    for admin_id in ADMINS:
+        if admin_id != message.chat.id:  # Чтобы не отправлять самому разработчику
+            try:
+                await bot.send_message(
+                    admin_id,
+                    f"🧑‍💻 Отчёт от {developer_name}:\n\n{report_text}"
+                )
+            except Exception as e:
+                logging.warning(f"Не удалось отправить отчёт админу {admin_id}: {e}")
 
 
 
